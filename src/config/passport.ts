@@ -3,7 +3,7 @@ import passport from "passport";
 import dotenv from 'dotenv';
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
 import JWT from 'jsonwebtoken';
-import { User } from '../models/User';
+import { Adm } from '../models/Adm'
 
 dotenv.config();
 
@@ -17,9 +17,9 @@ const options = {
 
 // Aqui eu configuro a Strategy
 passport.use(new JWTStrategy(options, async (payload, done) => {
-   const user = await User.findByPk(payload.id);
-   if (user) {
-      return done(null, user);
+   const adm = await Adm.findByPk(payload.id);
+   if (adm) {
+      return done(null, adm);
    } else {
       return done(notAuthorizedJson, false);
    }
@@ -31,9 +31,9 @@ export const generateToken = (data: object) => {
 
 // vai usar o passport para fazer a verificação se der certo ele manda para rota
 export const privateRoute = (req: Request, res: Response, next: NextFunction) => {
-   passport.authenticate('jwt', (err, user) => {
-      req.user = user;
-      return user ? next() : next(notAuthorizedJson);
+   passport.authenticate('jwt', (err, adm) => {
+      req.user = adm;
+      return adm ? next() : next(notAuthorizedJson);
    })(req, res, next);
 }
 

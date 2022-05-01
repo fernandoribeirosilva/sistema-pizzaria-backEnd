@@ -10,7 +10,7 @@ export interface ClienteInstance extends Model {
     bairro: string;
 }
 
-export const Cliente = sequelize.define<ClienteInstance>('User', {
+export const Cliente = sequelize.define<ClienteInstance>('Cliente', {
     id: {
         primaryKey: true,
         autoIncrement: true,

@@ -6,11 +6,11 @@ export interface PizzaInstance extends Model {
    sabor: string;
    preco: string;
    tamanho: string;
-   decricao: string;
+   descricao: string;
    imagem: string;
 }
 
-export const Pizza = sequelize.define<PizzaInstance>('User', {
+export const Pizza = sequelize.define<PizzaInstance>('Pizza', {
    id: {
       primaryKey: true,
       autoIncrement: true,
@@ -25,7 +25,7 @@ export const Pizza = sequelize.define<PizzaInstance>('User', {
    tamanho: {
       type: DataTypes.STRING
    },
-   decricao: {
+   descricao: {
       type: DataTypes.STRING
    },
    imagem: {

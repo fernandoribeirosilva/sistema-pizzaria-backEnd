@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { User } from '../models/User';
+import { Adm } from '../models/Adm';
 import { generateToken } from '../config/passport';
 
 export const ping = (req: Request, res: Response) => {
@@ -7,16 +7,16 @@ export const ping = (req: Request, res: Response) => {
 }
 
 export const register = async (req: Request, res: Response) => {
-    if (req.body.email && req.body.password) {
-        let { email, password } = req.body;
+    if (req.body.name && req.body.password) {
+        let { name, password } = req.body;
 
-        let hasUser = await User.findOne({ where: { email } });
-        if (!hasUser) {
-            let newUser = await User.create({ email, password });
+        let hasAdm = await Adm.findOne({ where: { name } });
+        if (!hasAdm) {
+            let newAdm = await Adm.create({ name, password });
 
             res.status(201);
-            const token = generateToken({ id: newUser.id });
-            res.json({ id: newUser.id, token });
+            const token = generateToken({ id: newAdm.id });
+            res.json({ id: newAdm.id, token });
         } else {
             res.json({ error: 'E-mail já existe.' });
         }
@@ -26,16 +26,16 @@ export const register = async (req: Request, res: Response) => {
 }
 
 export const login = async (req: Request, res: Response) => {
-    if (req.body.email && req.body.password) {
-        let email: string = req.body.email;
+    if (req.body.name && req.body.password) {
+        let name: string = req.body.name;
         let password: string = req.body.password;
 
-        let user = await User.findOne({
-            where: { email, password }
+        let adm = await Adm.findOne({
+            where: { name, password }
         });
 
-        if (user) {
-            const token = generateToken({ id: user.id });
+        if (adm) {
+            const token = generateToken({ id: adm.id });
             res.json({ status: true, token });
             return;
         }
@@ -47,12 +47,13 @@ export const login = async (req: Request, res: Response) => {
 export const list = async (req: Request, res: Response) => {
     console.log('USER', req.user)
 
-    let users = await User.findAll();
+    let adm = await Adm.findAll();
     let list: string[] = [];
 
-    for (let i in users) {
-        list.push(users[i].email);
+    for (let i in adm) {
+        list.push(adm[i].name);
     }
 
     res.json({ list });
 }
+
