@@ -4,7 +4,6 @@ import { unlink } from 'fs/promises';
 import { Pizza } from '../models/Pizza';
 
 
-
 export const newProduct = async (req: Request, res: Response) => {
    let { sabor, preco, tamanho, descricao } = req.body;
    let file = req.file;
@@ -43,3 +42,26 @@ export const newProduct = async (req: Request, res: Response) => {
    }
 }
 
+export const listAllProduct = async (req: Request, res: Response) => {
+   let data = await Pizza.findAll();
+
+   res.status(200).json({ list: data });
+}
+
+export const findByProduct = async (req: Request, res: Response) => {
+   const { id } = req.params;
+
+   try {
+      const product = await Pizza.findByPk(id);
+
+      if (!product) {
+         throw new Error('Este produto não existe.');
+      }
+
+      res.status(200).json({ data: product });
+   } catch (err) {
+      res.json({ error: "Este produto não existe." });
+   }
+
+
+}

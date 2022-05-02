@@ -23,5 +23,7 @@ router.post('/login', ApiController.login);
 router.get('/list', privateRoute, ApiController.list);
 
 router.post('/upload', upload.single('image'), PizzaController.newProduct);
+router.get('/listAllProduct', PizzaController.listAllProduct);
+router.get('/listProduct/:id', PizzaController.findByProduct);
 
 export default router;
