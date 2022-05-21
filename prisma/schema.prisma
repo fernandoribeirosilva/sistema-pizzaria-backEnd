@@ -18,6 +18,8 @@ model Client {
 
   adress Address @relation(fields: [adressId], references: [id])
 
+  telephone Telephone[]
+
   @@map("client")
 }
 
@@ -43,4 +45,52 @@ model District {
   address Address[]
 
   @@map("district")
+}
+
+model Telephone {
+  id       Int @id @default(autoincrement())
+  number   Int
+  clientId Int
+
+  client Client @relation(fields: [clientId], references: [id])
+
+  @@map("telephone")
+}
+
+model Pizza {
+  id          Int    @id @default(autoincrement())
+  name        String @db.VarChar(150)
+  price       Float
+  size        String @default("P, M, G") @db.Char(3)
+  description String @db.VarChar(80)
+  img         String @default("defaultPizza.png")
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  @@map("pizza")
+}
+
+model Drink {
+  id          Int    @id @default(autoincrement())
+  name        String @db.VarChar(150)
+  price       Float
+  size        String @db.VarChar(50)
+  img         String @default("defaultDrink.png")
+  description String @db.VarChar(80)
+
+  drink   Category @relation(fields: [drinkId], references: [id])
+  drinkId Int
+
+  @@map("drink")
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(100)
+
+  pizzas Pizza[]
+  drinks Drink[]
+
+  @@map("category")
 }
