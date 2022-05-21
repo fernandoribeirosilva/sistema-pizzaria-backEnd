@@ -30,5 +30,17 @@ model Address {
 
   client Client?
 
+  districtId Int
+  district   District @relation(fields: [districtId], references: [id])
+
   @@map("address")
+}
+
+model District {
+  id   Int    @id @default(autoincrement())
+  name String @unique @db.VarChar(150)
+
+  address Address[]
+
+  @@map("district")
 }
