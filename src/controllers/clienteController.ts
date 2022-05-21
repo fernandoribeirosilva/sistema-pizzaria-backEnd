@@ -36,7 +36,6 @@ export const register = async (req: Request, res: Response) => {
 
       let result = verificaCampo(data);
 
-      // console.log('Campo', reslt);
       res.status(400).json({ error: `Campo ${result} obrigatorio` });
    }
 
