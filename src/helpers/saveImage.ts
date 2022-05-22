@@ -14,5 +14,5 @@ export const SaveImage = async (file: Express.Multer.File) => {
 
       await unlink(file.path);// deleta o arquivo da pasta tenporaria tmp
    }
-
+   return fileName;
 }

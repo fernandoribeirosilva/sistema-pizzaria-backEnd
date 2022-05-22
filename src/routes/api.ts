@@ -3,7 +3,7 @@ import { privateRoute } from '../config/passport';
 import multer from 'multer';
 import * as ApiController from '../controllers/apiController';
 import * as PizzaController from '../controllers/pizzaController';
-import * as ClienteController from '../controllers/clienteController';
+import * as CategoryController from '../controllers/categoryController';
 
 const upload = multer({
    dest: './tmp',
@@ -17,13 +17,21 @@ const upload = multer({
 const router = Router();
 
 router.get('/ping', ApiController.ping);
-router.post('/register', ClienteController.register);
-router.post('/login', ApiController.login);
 
-router.get('/list', privateRoute, ApiController.list);
-
-router.post('/upload', upload.single('image'), PizzaController.newProduct);
+router.get('/findAllCategorys', CategoryController.findCategory);
 router.get('/listAllProduct', PizzaController.listAllProduct);
-router.get('/listProduct/:id', PizzaController.findByProduct);
+
+// router.post('/register', ClienteController.register);
+// router.post('/login', ApiController.login);
+
+
+// router.get('/list', privateRoute, ApiController.list);
+
+router.post('/create', upload.single('img'), PizzaController.newProduct);
+router.post('/newCategory', CategoryController.creaNewCategory);
+
+
+
+// router.get('/listProduct/:id', PizzaController.findByProduct);
 
 export default router;

@@ -79,8 +79,8 @@ model Drink {
   img         String @default("defaultDrink.png")
   description String @db.VarChar(80)
 
-  drink   Category @relation(fields: [drinkId], references: [id])
-  drinkId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
 
   @@map("drink")
 }
