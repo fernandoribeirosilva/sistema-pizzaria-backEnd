@@ -13,7 +13,16 @@ type PizzaDataProps = {
 
 export const PizzaService = {
    createNewProduct: async (data: PizzaDataProps) => {
-
+      return await prisma.pizza.create({
+         data: {
+            name: data.name,
+            price: data.price,
+            size: data.size,
+            description: data.description,
+            img: data.img,
+            categoryId: data.categoryId
+         }
+      })
    },
 
    findAll: async () => {

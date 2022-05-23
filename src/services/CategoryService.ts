@@ -11,5 +11,11 @@ export const CategoryService = {
 
    findAll: async () => {
       return prisma.category.findMany();
+   },
+
+   findByName: async (name: string) => {
+      return await prisma.category.findFirst({
+         where: { name }
+      });
    }
 }

@@ -14,6 +14,7 @@ server.use(cors());
 // para ver a imagem no navegador http://localhost:3000/files/nome da imagem
 server.use('/files', express.static(path.join(__dirname, '../public/media')));
 server.use(express.urlencoded({ extended: true }));
+server.use(express.json());
 
 server.use(passport.initialize());
 
