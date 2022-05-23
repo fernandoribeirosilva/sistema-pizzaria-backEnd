@@ -50,18 +50,12 @@ export const listAllProduct = async (req: Request, res: Response) => {
    return res.status(200).json({ list: data });
 }
 
-// export const findByProduct = async (req: Request, res: Response) => {
-//    const { id } = req.params;
+export const findByIdProduct = async (req: Request, res: Response) => {
+   const { id } = req.params;
 
-//    try {
-//       const product = await Pizza.findByPk(id);
+   const hasProduct = await PizzaService.findById(parseInt(id));
 
-//       if (!product) {
-//          throw new Error('Este produto não existe.');
-//       }
+   if (!hasProduct) return res.status(200).json({ error: 'Este produto não existe.' });
 
-//       res.status(200).json({ data: product });
-//    } catch (err) {
-//       res.json({ error: "Este produto não existe." });
-//    }
-
+   return res.status(200).json({ list: hasProduct });
+}

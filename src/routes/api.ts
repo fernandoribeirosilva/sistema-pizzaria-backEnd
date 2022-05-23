@@ -19,7 +19,8 @@ const router = Router();
 router.get('/ping', ApiController.ping);
 
 router.get('/findAllCategorys', CategoryController.findCategory);
-router.get('/listAllProduct', PizzaController.listAllProduct);
+router.get('/produtos', PizzaController.listAllProduct);
+router.get('/produto/:id', PizzaController.findByIdProduct);
 
 // router.post('/register', ClienteController.register);
 // router.post('/login', ApiController.login);

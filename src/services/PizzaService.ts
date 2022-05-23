@@ -27,5 +27,11 @@ export const PizzaService = {
 
    findAll: async () => {
       return await prisma.pizza.findMany();
+   },
+
+   findById: async (id: number) => {
+      return await prisma.pizza.findUnique({
+         where: { id }
+      })
    }
 }
