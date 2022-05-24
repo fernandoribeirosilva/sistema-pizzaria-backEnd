@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { SaveImage } from '../helpers/saveImage';
+import { DeleImagem, SaveImage } from '../helpers/saveImage';
 import { CategoryService } from '../services/CategoryService';
 import { PizzaService } from '../services/PizzaService';
 
@@ -59,3 +59,42 @@ export const findByIdProduct = async (req: Request, res: Response) => {
 
    return res.status(200).json({ list: hasProduct });
 }
+
+export const updateProduct = async (req: Request, res: Response) => {
+   const id: number = parseInt(req.params.id);
+   const { name, price, size, description }: DataProps = req.body;
+   let file = req.file;
+
+   if (!name) return res.status(200).json({ error: `O campo nome é obrigátorio` });
+   if (!price) return res.status(200).json({ error: `O campo preço é obrigátorio` });
+   if (!size) return res.status(200).json({ error: `O campo tamanho é obrigátorio` });
+   if (!description) return res.status(200).json({ error: `O campo descrição é obrigátorio` });
+
+
+   try {
+      const hasImage = await PizzaService.findById(id);
+      let newImg;
+
+      if (file) {
+         newImg = await SaveImage(file);
+         if (hasImage) DeleImagem('./public/media', hasImage.img);
+      }
+
+
+      let updateProduct = await PizzaService.update(
+         id,
+         {
+            name,
+            price: parseFloat(price),
+            size: size.trim().toUpperCase(),
+            description,
+            img: newImg ?? hasImage?.img
+         }
+      );
+
+      return res.status(200).json({ list: updateProduct });
+
+   } catch (error) {
+      return res.status(400).json({ error: 'Este produto não esta cadastrado.' })
+   }
+} 

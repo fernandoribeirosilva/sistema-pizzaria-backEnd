@@ -11,6 +11,14 @@ type PizzaDataProps = {
    categoryId: number;
 }
 
+type UpdateProps = {
+   name: string;
+   price: number;
+   size: string;
+   description: string;
+   img?: string;
+}
+
 export const PizzaService = {
    createNewProduct: async (data: PizzaDataProps) => {
       return await prisma.pizza.create({
@@ -32,6 +40,19 @@ export const PizzaService = {
    findById: async (id: number) => {
       return await prisma.pizza.findUnique({
          where: { id }
+      })
+   },
+
+   update: async (id: number, data: UpdateProps) => {
+      return await prisma.pizza.update({
+         where: { id },
+         data: {
+            name: data.name,
+            price: data.price,
+            size: data.size,
+            description: data.description,
+            img: data.img
+         }
       })
    }
 }

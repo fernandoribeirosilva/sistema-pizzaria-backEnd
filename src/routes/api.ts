@@ -25,11 +25,9 @@ router.get('/produto/:id', PizzaController.findByIdProduct);
 // router.post('/register', ClienteController.register);
 // router.post('/login', ApiController.login);
 
-
-// router.get('/list', privateRoute, ApiController.list);
-
 router.post('/create', upload.single('img'), PizzaController.newProduct);
 router.post('/newCategory', CategoryController.creaNewCategory);
+router.put('/atualizar-produto/:id', upload.single('img'), PizzaController.updateProduct);
 
 
 
