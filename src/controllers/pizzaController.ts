@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { DeleImagem, SaveImage } from '../helpers/saveImage';
+import { DeleImagem, SaveImage } from '../helpers/manipulateImage';
 import { CategoryService } from '../services/CategoryService';
 import { PizzaService } from '../services/PizzaService';
 
