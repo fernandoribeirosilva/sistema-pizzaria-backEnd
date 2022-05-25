@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { DrinkService } from '../services/DrinnkService';
+import { DrinkService } from '../services/DrinkService';
 import { CategoryService } from '../services/CategoryService';
 import * as ManipulateImage from '../helpers/manipulateImage';
 
@@ -10,6 +10,7 @@ type DataProps = {
    description?: string;
    idCategory: number
 }
+
 
 export const create = async (req: Request, res: Response) => {
    const { name, price, description, idCategory }: DataProps = req.body;
@@ -53,4 +54,15 @@ export const findAllDrink = async (req: Request, res: Response) => {
    if (!drinks) return res.status(200).json({ error: 'Não tem produtos cadastrados.' });
 
    return res.status(200).json({ list: drinks });
+}
+
+export const findByIdProduct = async (req: Request, res: Response) => {
+   const { id } = req.params;
+
+
+   const hasProduct = await DrinkService.findByDrink(+id);
+
+   if (!hasProduct) return res.status(200).json({ error: 'Este produto não existe.' });
+
+   return res.status(200).json({ list: hasProduct });
 }

@@ -23,8 +23,8 @@ export const DrinkService = {
       });
    },
 
-   findById: async (id: number) => {
-      return await prisma.drink.findUnique({
+   findByDrink: async (id: number) => {
+      return await prisma.drink.findMany({
          where: { id }
       })
    },
