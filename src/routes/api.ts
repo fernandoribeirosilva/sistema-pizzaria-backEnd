@@ -20,8 +20,9 @@ const router = Router();
 router.get('/ping', ApiController.ping);
 
 router.get('/findAllCategorys', CategoryController.findAllCategory);
-router.get('/produtos', PizzaController.listAllProduct);
+router.get('/pizzas', PizzaController.listAllProduct);
 router.get('/produto/:id', PizzaController.findByIdProduct);
+router.get('/bebidas', DrinKController.findAllDrink);
 
 // router.post('/register', ClienteController.register);
 // router.post('/login', ApiController.login);

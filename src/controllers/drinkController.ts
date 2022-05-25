@@ -46,3 +46,11 @@ export const create = async (req: Request, res: Response) => {
       return res.status(200).json({ error: `Esta cadegoria não existe.` });
    }
 }
+
+export const findAllDrink = async (req: Request, res: Response) => {
+   const drinks = await DrinkService.findAll();
+
+   if (!drinks) return res.status(200).json({ error: 'Não tem produtos cadastrados.' });
+
+   return res.status(200).json({ list: drinks });
+}
