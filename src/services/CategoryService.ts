@@ -17,5 +17,11 @@ export const CategoryService = {
       return await prisma.category.findFirst({
          where: { name }
       });
+   },
+
+   findById: async (id: number) => {
+      return await prisma.category.findUnique({
+         where: { id }
+      });
    }
 }

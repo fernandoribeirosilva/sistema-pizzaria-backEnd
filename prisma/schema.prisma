@@ -72,12 +72,11 @@ model Pizza {
 }
 
 model Drink {
-  id          Int    @id @default(autoincrement())
-  name        String @db.VarChar(150)
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(150)
   price       Float
-  size        String @db.VarChar(50)
-  img         String @default("defaultDrink.png")
-  description String @db.VarChar(80)
+  img         String  @default("defaultDrink.png")
+  description String? @db.VarChar(80)
 
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int

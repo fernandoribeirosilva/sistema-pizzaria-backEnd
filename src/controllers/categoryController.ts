@@ -11,7 +11,7 @@ export const creaNewCategory = async (req: Request, res: Response) => {
    return res.status(201).json({ category });
 }
 
-export const findCategory = async (req: Request, res: Response) => {
+export const findAllCategory = async (req: Request, res: Response) => {
    const category = await CategoryService.findAll();
 
    if (!category) return res.status(200).json({ error: 'Não tem categorias cadastrada.' });

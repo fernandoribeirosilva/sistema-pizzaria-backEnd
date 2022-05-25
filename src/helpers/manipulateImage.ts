@@ -2,7 +2,7 @@ import sharp from 'sharp';
 import { unlink } from 'fs/promises';
 import fs from 'fs';
 
-export const SaveImage = async (file: Express.Multer.File) => {
+export const saveImage = async (file: Express.Multer.File) => {
    let fileName = '';
 
    if (file) {
@@ -20,7 +20,7 @@ export const SaveImage = async (file: Express.Multer.File) => {
    return fileName;
 }
 
-export const DeleImagem = async (diretorio: string, nameImagem: string) => {
+export const deleImagem = async (diretorio: string, nameImagem: string) => {
    let listaImagem = fs.readdirSync(diretorio);// vai ler todos os arquivos do tiretorio que foi passado
 
    // a função includes verifica se tem a string que foi passada

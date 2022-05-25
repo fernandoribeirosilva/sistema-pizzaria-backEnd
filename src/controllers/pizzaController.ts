@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { DeleImagem, SaveImage } from '../helpers/manipulateImage';
+import * as ManipulateImage from '../helpers/manipulateImage';
 import { CategoryService } from '../services/CategoryService';
 import { PizzaService } from '../services/PizzaService';
 
@@ -24,7 +24,7 @@ export const newProduct = async (req: Request, res: Response) => {
 
       if (!hascategory) return res.status(200).json({ error: `Esta cadegoria não existe.` });
 
-      const img = await SaveImage(file);
+      const img = await ManipulateImage.saveImage(file);
 
       let product = await PizzaService.createNewProduct({
          name,
@@ -76,8 +76,8 @@ export const updateProduct = async (req: Request, res: Response) => {
       let newImg;
 
       if (file) {
-         newImg = await SaveImage(file);
-         if (hasImage) DeleImagem('./public/media', hasImage.img);
+         newImg = await ManipulateImage.saveImage(file);
+         if (hasImage) ManipulateImage.deleImagem('./public/media', hasImage.img);
       }
 
 

@@ -4,6 +4,7 @@ import multer from 'multer';
 import * as ApiController from '../controllers/apiController';
 import * as PizzaController from '../controllers/pizzaController';
 import * as CategoryController from '../controllers/categoryController';
+import * as DrinKController from '../controllers/drinkController';
 
 const upload = multer({
    dest: './tmp',
@@ -18,14 +19,15 @@ const router = Router();
 
 router.get('/ping', ApiController.ping);
 
-router.get('/findAllCategorys', CategoryController.findCategory);
+router.get('/findAllCategorys', CategoryController.findAllCategory);
 router.get('/produtos', PizzaController.listAllProduct);
 router.get('/produto/:id', PizzaController.findByIdProduct);
 
 // router.post('/register', ClienteController.register);
 // router.post('/login', ApiController.login);
 
-router.post('/create', upload.single('img'), PizzaController.newProduct);
+router.post('/cadastra-pizza', upload.single('img'), PizzaController.newProduct);
+router.post('/cadastra-bebida', upload.single('img'), DrinKController.create);
 router.post('/newCategory', CategoryController.creaNewCategory);
 router.put('/atualizar-produto/:id', upload.single('img'), PizzaController.updateProduct);
 
