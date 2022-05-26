@@ -8,8 +8,6 @@ export const saveImage = async (file: Express.Multer.File) => {
    if (file) {
       fileName = `${file.filename}.jpg`;
 
-      console.log('file.path', file.path)
-
       await sharp(file.path)
          .resize(200)// redimesionar a imagem
          .toFormat('jpeg')

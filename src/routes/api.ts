@@ -31,7 +31,9 @@ router.get('/bebida/:id', DrinKController.findByIdProduct);
 router.post('/cadastra-pizza', upload.single('img'), PizzaController.newProduct);
 router.post('/cadastra-bebida', upload.single('img'), DrinKController.create);
 router.post('/newCategory', CategoryController.creaNewCategory);
-router.put('/atualizar-produto/:id', upload.single('img'), PizzaController.updateProduct);
+
+router.put('/pizza/:id/atualizar', upload.single('img'), PizzaController.updateProduct);
+router.put('/bebida/:id/atualizar', upload.single('img'), DrinKController.updateProduct);
 
 
 

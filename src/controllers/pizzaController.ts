@@ -76,8 +76,8 @@ export const updateProduct = async (req: Request, res: Response) => {
       let newImg;
 
       if (file) {
+         if (hasImage) await ManipulateImage.deleImagem('./public/media', hasImage.img);
          newImg = await ManipulateImage.saveImage(file);
-         if (hasImage) ManipulateImage.deleImagem('./public/media', hasImage.img);
       }
 
 

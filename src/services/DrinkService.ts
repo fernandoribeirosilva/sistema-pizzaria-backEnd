@@ -10,6 +10,13 @@ type DrinkProps = {
    categoryId: number;
 }
 
+type UpdateProps = {
+   name: string;
+   price: number;
+   description?: string;
+   img?: string;
+}
+
 export const DrinkService = {
    create: async (data: DrinkProps) => {
       return await prisma.drink.create({
@@ -23,13 +30,26 @@ export const DrinkService = {
       });
    },
 
-   findByDrink: async (id: number) => {
-      return await prisma.drink.findMany({
+   findById: async (id: number) => {
+      return await prisma.drink.findUnique({
          where: { id }
       })
    },
 
    findAll: async () => {
       return await prisma.drink.findMany();
+   },
+
+   update: async (id: number, data: UpdateProps) => {
+      console.log(id, data);
+      return await prisma.drink.update({
+         where: { id },
+         data: {
+            name: data.name,
+            price: data.price,
+            description: data.description,
+            img: data.img
+         }
+      })
    }
 }
