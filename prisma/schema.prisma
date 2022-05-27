@@ -19,6 +19,7 @@ model Client {
   adress Address @relation(fields: [adressId], references: [id])
 
   telephone Telephone[]
+  purchase  Purchase[]
 
   @@map("client")
 }
@@ -68,6 +69,8 @@ model Pizza {
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
 
+  purchase Purchase[]
+
   @@map("pizza")
 }
 
@@ -81,6 +84,8 @@ model Drink {
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
 
+  purchase Purchase[]
+
   @@map("drink")
 }
 
@@ -92,4 +97,20 @@ model Category {
   drinks Drink[]
 
   @@map("category")
+}
+
+model Purchase {
+  id       Int   @id @default(autoincrement())
+  clientId Int
+  drinkId  Int
+  pizzaId  Int
+  qtdDrink Int
+  qtdPizza Int
+  total    Float
+
+  client Client @relation(fields: [clientId], references: [id])
+  drink  Drink  @relation(fields: [drinkId], references: [id])
+  pizza  Pizza  @relation(fields: [pizzaId], references: [id])
+
+  @@map("purchase")
 }
