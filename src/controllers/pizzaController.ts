@@ -9,36 +9,36 @@ type DataProps = {
    size: string;
    description: string;
    img: string;
-   nameCategory: string;
+   IdCategory: string;
 }
 
 export const newProduct = async (req: Request, res: Response) => {
-   let { name, price, size, description, nameCategory }: DataProps = req.body;
+   let { name, price, size, description, IdCategory }: DataProps = req.body;
    let file = req.file;
 
    if (!file) return res.status(400).json({ error: 'Formato da foto Inválida.' });
 
-   if (name && price && size && description && nameCategory) {
+   if (name && price && size && description) {
 
-      const hascategory = await CategoryService.findByName(nameCategory);
+      const category = await CategoryService.findById(+IdCategory);
 
-      if (!hascategory) return res.status(200).json({ error: `Esta cadegoria não existe.` });
+      if (!category) return res.status(200).json({ error: `Esta categoria não existe.` });
 
       const img = await ManipulateImage.saveImage(file);
 
       let product = await PizzaService.createNewProduct({
          name,
          price: parseFloat(price),
-         size: (size ?? 'M').trim(),
+         size: (size ?? 'M').trim().toUpperCase(),
          description,
          img,
-         categoryId: hascategory.id
+         categoryId: category.id
       });
 
       return res.status(201).json({ list: product });
 
    } else {
-      return res.status(400).json({ error: "Campos Obrigatorios." });
+      return res.status(400).json({ error: "Campos Obrigatórios." });
    }
 }
 
@@ -65,10 +65,10 @@ export const updateProduct = async (req: Request, res: Response) => {
    const { name, price, size, description }: DataProps = req.body;
    let file = req.file;
 
-   if (!name) return res.status(200).json({ error: `O campo nome é obrigátorio` });
-   if (!price) return res.status(200).json({ error: `O campo preço é obrigátorio` });
-   if (!size) return res.status(200).json({ error: `O campo tamanho é obrigátorio` });
-   if (!description) return res.status(200).json({ error: `O campo descrição é obrigátorio` });
+   if (!name) return res.status(200).json({ error: `O campo nome é obrigatório` });
+   if (!price) return res.status(200).json({ error: `O campo preço é obrigatório` });
+   if (!size) return res.status(200).json({ error: `O campo tamanho é obrigatório` });
+   if (!description) return res.status(200).json({ error: `O campo descrição é obrigatório` });
 
 
    try {

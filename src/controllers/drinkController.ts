@@ -23,14 +23,14 @@ export const create = async (req: Request, res: Response) => {
    let file = req.file;
 
    if (!file) return res.status(400).json({ error: 'Formato da foto Inválida.', field: `file` });
-   if (!name) return res.status(200).json({ error: 'Campo nome é obrigátorio.', field: `name` });
-   if (!price) return res.status(200).json({ error: 'Campo preço é obrigátorio.', field: `price` });
+   if (!name) return res.status(200).json({ error: 'Campo nome é obrigatório.', field: `name` });
+   if (!price) return res.status(200).json({ error: 'Campo preço é obrigatório.', field: `price` });
 
    const img = await ManipulateImage.saveImage(file);
    try {
       const findId = await CategoryService.findById(+idCategory);
 
-      if (!findId) throw new Error("Esta cadegoria não existe.");
+      if (!findId) throw new Error("Esta categoria não existe.");
 
       try {
          const newDrink = await DrinkService.create(
@@ -45,11 +45,11 @@ export const create = async (req: Request, res: Response) => {
 
          return res.status(201).json({ data: newDrink });
       } catch (error) {
-         return res.status(200).json({ error: `Não foi possivel cadastra este produtos.` });
+         return res.status(200).json({ error: `Não foi possível cadastra este produtos.` });
       }
 
    } catch (error) {
-      return res.status(200).json({ error: `Esta cadegoria não existe.` });
+      return res.status(200).json({ error: `Esta categoria não existe.` });
    }
 }
 
@@ -80,8 +80,8 @@ export const updateProduct = async (req: Request, res: Response) => {
    const hasProduct = await DrinkService.findById(id);
 
    if (!hasProduct) return res.status(200).json({ error: 'Este produto não esta cadastrado.' });
-   if (!name) return res.status(200).json({ error: `O campo nome é obrigátorio`, field: 'name' });
-   if (!price) return res.status(200).json({ error: `O campo preço é obrigátorio`, field: 'price' });
+   if (!name) return res.status(200).json({ error: `O campo nome é obrigatório`, field: 'name' });
+   if (!price) return res.status(200).json({ error: `O campo preço é obrigatório`, field: 'price' });
 
    try {
       let newImg;

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { CategoryService } from '../services/CategoryService';
 
-export const creaNewCategory = async (req: Request, res: Response) => {
+export const createNewCategory = async (req: Request, res: Response) => {
    const name: string = req.body.name;
 
    if (!name) return res.status(200).json({ error: 'É necessário um nome para a Categoria' });
