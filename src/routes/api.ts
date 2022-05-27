@@ -19,10 +19,10 @@ const router = Router();
 
 router.get('/ping', ApiController.ping);
 
-router.get('/findAllCategorys', CategoryController.findAllCategory);
-router.get('/pizza', PizzaController.listAllProduct);
+router.get('/categorias', CategoryController.findAllCategory);
+router.get('/pizzas', PizzaController.listAllProduct);
 router.get('/pizza/:id', PizzaController.findByIdProduct);
-router.get('/bebida', DrinKController.findAllDrink);
+router.get('/bebidas', DrinKController.findAllDrink);
 router.get('/bebida/:id', DrinKController.findByIdProduct);
 
 // router.post('/register', ClienteController.register);
@@ -30,11 +30,10 @@ router.get('/bebida/:id', DrinKController.findByIdProduct);
 
 router.post('/cadastra-pizza', upload.single('img'), PizzaController.newProduct);
 router.post('/cadastra-bebida', upload.single('img'), DrinKController.create);
-router.post('/newCategory', CategoryController.creaNewCategory);
+router.post('/newCategory', CategoryController.createNewCategory);
 
 router.put('/pizza/:id/atualizar', upload.single('img'), PizzaController.updateProduct);
 router.put('/bebida/:id/atualizar', upload.single('img'), DrinKController.updateProduct);
-
 
 
 // router.get('/listProduct/:id', PizzaController.findByProduct);
