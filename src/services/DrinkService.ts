@@ -41,7 +41,6 @@ export const DrinkService = {
    },
 
    update: async (id: number, data: UpdateProps) => {
-      console.log(id, data);
       return await prisma.drink.update({
          where: { id },
          data: {
@@ -51,5 +50,9 @@ export const DrinkService = {
             img: data.img
          }
       })
-   }
+   },
+
+   delete: async (id: number) => {
+      return await prisma.drink.delete({ where: { id } });
+   },
 }

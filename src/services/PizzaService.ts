@@ -54,5 +54,9 @@ export const PizzaService = {
             img: data.img
          }
       })
-   }
+   },
+
+   delete: async (id: number) => {
+      return await prisma.pizza.delete({ where: { id } });
+   },
 }

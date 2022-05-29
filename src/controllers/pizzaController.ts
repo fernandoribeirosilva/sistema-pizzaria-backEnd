@@ -97,4 +97,22 @@ export const updateProduct = async (req: Request, res: Response) => {
    } catch (error) {
       return res.status(400).json({ error: 'Este produto não esta cadastrado.' })
    }
-} 
+}
+
+export const deleteProduct = async (req: Request, res: Response) => {
+   const id: number = parseInt(req.params.id);
+
+   try {
+      const hasProduct = await PizzaService.findById(id);
+
+      if (!hasProduct) return res.status(200).json({ error: 'Este produto não esta cadastrado.' });
+
+      await PizzaService.delete(hasProduct.id);
+      await ManipulateImage.deleImagem('./public/media', hasProduct.img);
+
+      return res.status(200).json({});
+
+   } catch (error) {
+      return res.status(400).json({ error: 'Este produto não esta cadastrado.' })
+   }
+}
