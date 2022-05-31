@@ -15,12 +15,12 @@ export const createAddress = async (req: Request, res: Response) => {
 
    let id;
 
-   if (!firstName) return res.status(200).json({ error: 'O campo nome é obrigatório.', field: 'firstName' });
-   if (!lastName) return res.status(200).json({ error: 'O campo sobrenome é obrigatório.', field: 'lastName' });
-   if (!nameDistrict) return res.status(200).json({ error: 'O campo bairro é obrigatório.', field: 'nameDistrict' });
-   if (!street) return res.status(200).json({ error: 'O campo rua é obrigatório.', field: 'street' });
-   if (!block) return res.status(200).json({ error: 'O campo quadra é obrigatório.', field: 'block' });
-   if (!batch) return res.status(200).json({ error: 'O campo lote é obrigatório.', field: 'batch' });
+   if (!firstName) return res.status(404).json({ error: 'O campo nome é obrigatório.', field: 'firstName' });
+   if (!lastName) return res.status(404).json({ error: 'O campo sobrenome é obrigatório.', field: 'lastName' });
+   if (!nameDistrict) return res.status(404).json({ error: 'O campo bairro é obrigatório.', field: 'nameDistrict' });
+   if (!street) return res.status(404).json({ error: 'O campo rua é obrigatório.', field: 'street' });
+   if (!block) return res.status(404).json({ error: 'O campo quadra é obrigatório.', field: 'block' });
+   if (!batch) return res.status(404).json({ error: 'O campo lote é obrigatório.', field: 'batch' });
 
    const hasAddresss = await CLientService.findBayAddress({
       street,
@@ -47,6 +47,6 @@ export const createAddress = async (req: Request, res: Response) => {
       return res.status(200).json({ list: { newUser } });
 
    } catch (error) {
-      return res.status(200).json({ error: 'Error au cadastrada o endereço ou o usuário já tem este endereço cadastrado.' });
+      return res.status(404).json({ error: 'Error au cadastrada o endereço ou o usuário já tem este endereço cadastrado.' });
    }
 }
