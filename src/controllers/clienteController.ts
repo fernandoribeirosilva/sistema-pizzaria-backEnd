@@ -1,41 +1,49 @@
-// import { Request, Response } from 'express';
+import { Request, Response } from 'express';
+import { CLientService } from '../services/ClientService';
+import * as ClientProps from '../types/ClientProps';
 
-// const verificaCampo = (data: string[] = []) => {
+export const createAddress = async (req: Request, res: Response) => {
+   let {
+      firstName,
+      lastName,
+      street,
+      block,
+      batch,
+      complement,
+      nameDistrict
+   }: ClientProps.ClientProps = req.body;
 
-//    let info: string[] = ['nome', 'rua', 'numero', 'bairro'];
+   let id;
 
-//    for (let index in data) {
-//       if (!data[index]) {
-//          for (let i in info) {
-//             if (index === i) {
-//                return info[i];
-//             }
-//          }
-//       }
-//    }
-// }
+   if (!firstName) return res.status(200).json({ error: 'O campo nome é obrigatório.' });
+   if (!lastName) return res.status(200).json({ error: 'O campo sobrenome é obrigatório.' });
+   if (!nameDistrict) return res.status(200).json({ error: 'O campo bairro é obrigatório.' });
 
-// export const register = async (req: Request, res: Response) => {
-//    let { nome, rua, numero, complemento, bairro } = req.body;
+   const hasAddresss = await CLientService.findBayAddress({
+      street,
+      block,
+      batch,
+   });
 
-//    if (nome && rua && numero && bairro) {
-//       let newCliente = await Cliente.create({
-//          nome,
-//          rua,
-//          numero,
-//          complemento,
-//          bairro
-//       });
+   if (hasAddresss) {
+      hasAddresss.find(data => id = data.id);
+   }
 
-//       res.status(201).json({ data: newCliente });
-//    } else {
-//       let data: string[] = [];
+   try {
+      const newUser = await CLientService.create({
+         firstName,
+         lastName,
+         addressId: id ?? 0,
+         street,
+         block,
+         batch,
+         complement,
+         nameDistrict
+      });
 
-//       data.push(nome, rua, numero, bairro);
+      return res.status(200).json({ list: { newUser } });
 
-//       let result = verificaCampo(data);
-
-//       res.status(400).json({ error: `Campo ${result} obrigatorio` });
-//    }
-
-// }
+   } catch (error) {
+      return res.status(200).json({ error: 'Error au cadastrada o endereço ou o usuário já tem este endereço cadastrado.' });
+   }
+}
