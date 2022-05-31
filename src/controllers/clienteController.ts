@@ -15,9 +15,12 @@ export const createAddress = async (req: Request, res: Response) => {
 
    let id;
 
-   if (!firstName) return res.status(200).json({ error: 'O campo nome é obrigatório.' });
-   if (!lastName) return res.status(200).json({ error: 'O campo sobrenome é obrigatório.' });
-   if (!nameDistrict) return res.status(200).json({ error: 'O campo bairro é obrigatório.' });
+   if (!firstName) return res.status(200).json({ error: 'O campo nome é obrigatório.', field: 'firstName' });
+   if (!lastName) return res.status(200).json({ error: 'O campo sobrenome é obrigatório.', field: 'lastName' });
+   if (!nameDistrict) return res.status(200).json({ error: 'O campo bairro é obrigatório.', field: 'nameDistrict' });
+   if (!street) return res.status(200).json({ error: 'O campo rua é obrigatório.', field: 'street' });
+   if (!block) return res.status(200).json({ error: 'O campo quadra é obrigatório.', field: 'block' });
+   if (!batch) return res.status(200).json({ error: 'O campo lote é obrigatório.', field: 'batch' });
 
    const hasAddresss = await CLientService.findBayAddress({
       street,
