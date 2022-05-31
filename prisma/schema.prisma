@@ -25,11 +25,11 @@ model Client {
 }
 
 model Address {
-  id         Int    @id @default(autoincrement())
-  street     String @db.VarChar(150)
-  block      String @db.VarChar(50)
-  batch      String @db.VarChar(50)
-  complement String @db.VarChar(80)
+  id         Int     @id @default(autoincrement())
+  street     String  @db.VarChar(150)
+  block      String  @db.VarChar(50)
+  batch      String  @db.VarChar(50)
+  complement String? @db.VarChar(80)
 
   client Client?
 
