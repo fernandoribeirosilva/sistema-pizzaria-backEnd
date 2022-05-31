@@ -6,6 +6,7 @@ import * as PizzaController from '../controllers/pizzaController';
 import * as CategoryController from '../controllers/categoryController';
 import * as DrinKController from '../controllers/drinkController';
 import * as CheckoutController from '../controllers/checkoutController';
+import * as ClienteController from '../controllers/clienteController';
 
 const upload = multer({
    dest: './tmp',
@@ -32,6 +33,7 @@ router.post('/cadastra-pizza', upload.single('img'), PizzaController.newProduct)
 router.post('/cadastra-bebida', upload.single('img'), DrinKController.create);
 router.post('/cadastra-categoria', CategoryController.createNewCategory);
 router.post('/checkout', CheckoutController.done);
+router.post('/registrar-endereco', ClienteController.createAddress);
 
 router.put('/pizza/:id/atualizar', upload.single('img'), PizzaController.updateProduct);
 router.put('/bebida/:id/atualizar', upload.single('img'), DrinKController.updateProduct);
