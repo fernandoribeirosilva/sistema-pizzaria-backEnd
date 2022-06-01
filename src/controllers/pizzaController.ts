@@ -76,10 +76,10 @@ export const updateProduct = async (req: Request, res: Response) => {
    const { name, price, size, description }: DataProps = req.body;
    let file = req.file;
 
-   if (!name) return res.status(200).json({ error: `O campo nome é obrigatório` });
-   if (!price) return res.status(200).json({ error: `O campo preço é obrigatório` });
-   if (!size) return res.status(200).json({ error: `O campo tamanho é obrigatório` });
-   if (!description) return res.status(200).json({ error: `O campo descrição é obrigatório` });
+   if (!name) return res.status(200).json({ error: `O campo nome é obrigatório`, field: 'name' });
+   if (!price) return res.status(200).json({ error: `O campo preço é obrigatório`, field: 'price' });
+   if (!size) return res.status(200).json({ error: `O campo tamanho é obrigatório`, field: 'size' });
+   if (!description) return res.status(200).json({ error: `O campo descrição é obrigatório`, field: 'description' });
 
 
    try {
