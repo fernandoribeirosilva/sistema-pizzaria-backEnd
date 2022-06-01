@@ -34,7 +34,7 @@ export const create = async (req: Request, res: Response) => {
          let removeBars = file.path.replace(/[\\"]/g, ' ');
          let nameFile = removeBars.split(' ');
 
-         await ManipulateImage.deleImagem('./tmp', nameFile[1]);
+         await ManipulateImage.deletarImagem('./tmp', nameFile[1]);
 
          return res.status(404).json({ error: `Esta categoria não existe.` });
       }
@@ -96,7 +96,7 @@ export const updateProduct = async (req: Request, res: Response) => {
       let newImg;
 
       if (file) {
-         if (hasProduct) await ManipulateImage.deleImagem('./public/media', hasProduct.img);
+         if (hasProduct) await ManipulateImage.deletarImagem('./public/media', hasProduct.img);
          newImg = await ManipulateImage.saveImage(file);
       }
 
@@ -126,7 +126,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
       if (!hasProduct) return res.status(200).json({ error: 'Este produto não esta cadastrado.' });
 
       await DrinkService.delete(hasProduct.id);
-      await ManipulateImage.deleImagem('./public/media', hasProduct.img);
+      await ManipulateImage.deletarImagem('./public/media', hasProduct.img);
 
       return res.status(200).json({});
    } catch (error) {
