@@ -28,7 +28,12 @@ export const PizzaService = {
             size: data.size,
             description: data.description,
             img: data.img,
-            categoryId: data.categoryId
+            // categoryId: data.categoryId
+            category: {
+               connect: {
+                  id: data.categoryId
+               }
+            }
          }
       })
    },
