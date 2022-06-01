@@ -23,7 +23,7 @@ export const deleImagem = async (diretorio: string, nameImagem: string) => {
 
    // a função includes verifica se tem a string que foi passada
    if (listaImagem.includes(nameImagem)) {
-      fs.unlinkSync(`./public/media/${nameImagem}`);// a função fs.unlinkSync vai deletar o arquivo
+      //fs.unlinkSync(`./public/media/${nameImagem}`);// a função fs.unlinkSync vai deletar o arquivo
+      fs.unlinkSync(`${diretorio}/${nameImagem}`);
    }
 }
-
