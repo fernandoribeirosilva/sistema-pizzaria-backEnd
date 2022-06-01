@@ -26,13 +26,22 @@ export const create = async (req: Request, res: Response) => {
    if (!name) return res.status(200).json({ error: 'Campo nome é obrigatório.', field: `name` });
    if (!price) return res.status(200).json({ error: 'Campo preço é obrigatório.', field: `price` });
 
-   const img = await ManipulateImage.saveImage(file);
+
    try {
       const findId = await CategoryService.findById(+idCategory);
 
-      if (!findId) throw new Error("Esta categoria não existe.");
+      if (!findId) {
+         let removeBars = file.path.replace(/[\\"]/g, ' ');
+         let nameFile = removeBars.split(' ');
+
+         await ManipulateImage.deleImagem('./tmp', nameFile[1]);
+
+         return res.status(404).json({ error: `Esta categoria não existe.` });
+      }
 
       try {
+         const img = await ManipulateImage.saveImage(file);
+
          const newDrink = await DrinkService.create(
             {
                name,

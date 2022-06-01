@@ -17,12 +17,22 @@ export const newProduct = async (req: Request, res: Response) => {
    let file = req.file;
 
    if (!file) return res.status(400).json({ error: 'Formato da foto Inválida.' });
+   if (!name) return res.status(400).json({ error: 'O campo nome é obrigatório.', field: 'name' });
+   if (!price) return res.status(400).json({ error: 'O campo preço é obrigatório.', field: 'price' });
+   if (!size) return res.status(400).json({ error: 'O campo tamanho é obrigatório.', field: 'size' });
+   if (!IdCategory) return res.status(400).json({ error: 'O campo categoria é obrigatório.', field: 'IdCategory' });
 
-   if (name && price && size && description) {
-
+   try {
       const category = await CategoryService.findById(+IdCategory);
 
-      if (!category) return res.status(200).json({ error: `Esta categoria não existe.` });
+      if (!category) {
+         let removeBars = file.path.replace(/[\\"]/g, ' ');
+         let nameFile = removeBars.split(' ');
+
+         await ManipulateImage.deleImagem('./tmp', nameFile[1]);
+
+         return res.status(404).json({ error: `Esta categoria não existe.` });
+      }
 
       const img = await ManipulateImage.saveImage(file);
 
@@ -37,9 +47,10 @@ export const newProduct = async (req: Request, res: Response) => {
 
       return res.status(201).json({ list: product });
 
-   } else {
-      return res.status(400).json({ error: "Campos Obrigatórios." });
+   } catch (error) {
+      return res.status(404).json({ error: 'Error au cadastrada o produto.' });
    }
+
 }
 
 export const listAllProduct = async (req: Request, res: Response) => {
