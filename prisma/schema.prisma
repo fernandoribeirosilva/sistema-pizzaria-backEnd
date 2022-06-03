@@ -11,10 +11,11 @@ datasource db {
 }
 
 model Client {
-  id        Int    @id @default(autoincrement())
-  firstName String @db.VarChar(150)
-  lastName  String @db.VarChar(150)
-  adressId  Int    @unique
+  id        Int     @id @default(autoincrement())
+  firstName String  @db.VarChar(150)
+  lastName  String  @db.VarChar(150)
+  token     String?
+  adressId  Int     @unique
 
   adress Address @relation(fields: [adressId], references: [id])
 
@@ -113,4 +114,13 @@ model Purchase {
   pizza  Pizza  @relation(fields: [pizzaId], references: [id])
 
   @@map("purchase")
+}
+
+model Adm {
+  id       Int    @id @default(autoincrement())
+  email    String @unique @db.VarChar(100)
+  password String @db.VarChar(255)
+  token    String @db.VarChar(255)
+
+  @@map("adm")
 }
