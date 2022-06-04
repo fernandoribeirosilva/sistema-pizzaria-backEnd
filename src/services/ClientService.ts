@@ -60,5 +60,11 @@ export const CLientService = {
             districtId: true,
          }
       });
+   },
+
+   findByToken: async (token: string) => {
+      return await prisma.client.findFirst({
+         where: { token }
+      })
    }
 }
