@@ -2,7 +2,6 @@ import express, { Request, Response, ErrorRequestHandler } from 'express';
 import path from 'path';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import passport from 'passport';
 import apiRoutes from './routes/api';
 
 dotenv.config();
@@ -15,8 +14,6 @@ server.use(cors());
 server.use('/files', express.static(path.join(__dirname, '../public/media')));
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
-
-server.use(passport.initialize());
 
 server.use('/api', apiRoutes);
 
