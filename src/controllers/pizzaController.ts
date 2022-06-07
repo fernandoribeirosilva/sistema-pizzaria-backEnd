@@ -13,10 +13,11 @@ type DataProps = {
 }
 
 export const newProduct = async (req: Request, res: Response) => {
+
    let { name, price, size, description, IdCategory }: DataProps = req.body;
    let file = req.file;
 
-   if (!file) return res.status(400).json({ error: 'Formato da foto Inválida.' });
+   if (!file) return res.status(400).json({ error: 'Formato da foto Inválida.', field: 'file' });
    if (!name) return res.status(400).json({ error: 'O campo nome é obrigatório.', field: 'name' });
    if (!price) return res.status(400).json({ error: 'O campo preço é obrigatório.', field: 'price' });
    if (!size) return res.status(400).json({ error: 'O campo tamanho é obrigatório.', field: 'size' });
