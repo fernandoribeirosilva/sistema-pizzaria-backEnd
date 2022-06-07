@@ -5,34 +5,29 @@ const prisma = new PrismaClient();
 type AdmProps = {
    email: string;
    password: string;
-   token: string;
+   adm: boolean;
 }
 
 export const AdmService = {
-   create: async ({ email, password, token }: AdmProps) => {
+   create: async ({ email, password, adm }: AdmProps) => {
       return await prisma.adm.create({
          data: {
             email,
             password,
-            token,
+            adm
          },
          select: {
-            token: true,
+            id: true,
             email: true,
-            password: true,
+            adm: true
          }
       })
    },
 
-   findOne: async (email: string) => {
+   findByEmail: async (email: string) => {
       return await prisma.adm.findFirst({
          where: { email }
       })
    },
 
-   findByToken: async (token: string) => {
-      return await prisma.adm.findFirst({
-         where: { token }
-      })
-   },
 }
