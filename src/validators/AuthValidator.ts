@@ -25,6 +25,13 @@ const AuthValidator = {
             options: { min: 2 },// a senha tem que ter no mínimo 2 caracteres
          },
          errorMessage: 'Senha precisa ter no mínimo 2 caracteres'
+      },
+      adm: {
+         isBoolean: true,
+         isLength: {
+            options: { min: 1 },
+         },
+         errorMessage: 'O campo de Adm não pode ser vazio'
       }
    }),
 };
