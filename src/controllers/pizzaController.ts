@@ -23,6 +23,12 @@ export const newProduct = async (req: Request, res: Response) => {
    if (!size) return res.status(400).json({ error: 'O campo tamanho é obrigatório.', field: 'size' });
    if (!IdCategory) return res.status(400).json({ error: 'O campo categoria é obrigatório.', field: 'IdCategory' });
 
+   let sizeFormatted
+   // este regex  /[-, ]/g  vai remover os espaços e os traços e as vírgulas para sem espaços
+   sizeFormatted = size.replace(/[-, #/%!@()]/g, '').split('').map((el): string => {
+      return el.toUpperCase().trim();
+   });
+
    try {
       const category = await CategoryService.findById(+IdCategory);
 
@@ -40,7 +46,7 @@ export const newProduct = async (req: Request, res: Response) => {
       let product = await PizzaService.createNewProduct({
          name,
          price: parseFloat(price),
-         size: (size ?? 'M').trim().toUpperCase(),
+         size: sizeFormatted,
          description,
          img,
          categoryId: category.id
@@ -49,7 +55,7 @@ export const newProduct = async (req: Request, res: Response) => {
       return res.status(201).json({ list: product });
 
    } catch (error) {
-      return res.status(404).json({ error: 'Error au cadastrada o produto.' });
+      return res.status(404).json({ error: 'Error ao cadastrada o produto.' });
    }
 
 }

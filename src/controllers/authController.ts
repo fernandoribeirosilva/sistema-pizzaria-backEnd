@@ -72,7 +72,7 @@ export const login = async (req: Request, res: Response) => {
         { id: adm.id },// aqui armazena o que eu possa identificar o usuário
         process.env.JWT_SECRET as string,
         {
-            subject: String(adm.adm),
+            subject: String(adm.id),
             expiresIn: '1d'
         }
     );
