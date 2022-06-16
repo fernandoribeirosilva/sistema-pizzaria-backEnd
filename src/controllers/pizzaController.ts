@@ -29,6 +29,8 @@ export const newProduct = async (req: Request, res: Response) => {
       return el.toUpperCase().trim();
    });
 
+   if (sizeFormatted.length > 3) return res.status(400).json({ error: 'Só é permitido cadastrar 3 tamanhos diferentes.', field: 'size' });
+
    try {
       const category = await CategoryService.findById(+IdCategory);
 
