@@ -6,11 +6,11 @@ export const saveImage = async (file: Express.Multer.File) => {
    let fileName = '';
 
    if (file) {
-      fileName = `${file.filename}.jpg`;
+      fileName = `${file.filename}.png`;
 
       await sharp(file.path)
-         .resize(200)// redimesionar a imagem
-         .toFormat('jpeg')
+         .resize(300)// redimesionar a imagem
+         .toFormat('png')
          .toFile(`./public/media/${fileName}`);// salvando o arquivo 
 
       await unlink(file.path);// deleta o arquivo da pasta tenporaria tmp
