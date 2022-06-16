@@ -39,7 +39,7 @@ export const Auth = {
                const { sub } = JWT.verify(token, process.env.JWT_SECRET as string);
                let id = sub as string;
 
-               let hasAdm = await AdmService.findById({ id });
+               let hasAdm = await AdmService.findById(id);
 
                if (hasAdm) {
                   if (hasAdm.adm === false) return res.status(403).json({ error: 'Você não tem permissão para acessar esta areá.' });
