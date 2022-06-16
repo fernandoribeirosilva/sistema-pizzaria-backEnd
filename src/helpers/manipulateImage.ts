@@ -9,7 +9,7 @@ export const saveImage = async (file: Express.Multer.File) => {
       fileName = `${file.filename}.png`;
 
       await sharp(file.path)
-         .resize(300)// redimesionar a imagem
+         .resize(300)// redimensionamento a imagem
          .toFormat('png')
          .toFile(`./public/media/${fileName}`);// salvando o arquivo 
 
