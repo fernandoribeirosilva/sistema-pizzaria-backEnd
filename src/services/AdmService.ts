@@ -30,4 +30,10 @@ export const AdmService = {
       })
    },
 
+   findById: async (id: string) => {
+      return await prisma.adm.findUnique({
+         where: { id: parseInt(id) }
+      })
+   },
+
 }
