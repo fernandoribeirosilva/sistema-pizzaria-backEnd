@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 type PizzaDataProps = {
    name: string;
    price: number;
-   size: string;
+   size: string[];
    description: string;
    img: string;
    categoryId: number;
