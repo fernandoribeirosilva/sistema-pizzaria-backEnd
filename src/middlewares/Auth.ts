@@ -3,10 +3,8 @@ import dotenv from 'dotenv';
 import JWT from 'jsonwebtoken';
 
 import { AdmService } from '../services/AdmService';
-import { log } from 'console';
 
 dotenv.config();
-
 
 export const Auth = {
    private: async (req: Request, res: Response, next: NextFunction) => {
@@ -32,22 +30,25 @@ export const Auth = {
 
       let success = false;
 
-
       if (req.headers.authorization) {
 
          const [authType, token] = req.headers.authorization.split(' ');
+
          if (authType === 'Bearer') {
             try {
                const { sub } = JWT.verify(token, process.env.JWT_SECRET as string);
+               let id = sub as string;
 
-               if (sub !== 'true') throw new Error('Invalid token');
+               let hasAdm = await AdmService.findById({ id });
 
-               success = true;
+               if (hasAdm) {
+                  if (hasAdm.adm === false) return res.status(403).json({ error: 'Você não tem permissão para acessar esta areá.' });
 
+                  success = true;
+               }
 
             } catch (error) {
                // vai passar direto para a mensagem Não autorizado
-               return res.status(403).json({ error: 'Não autorizado.' });
             }
          }
       }
@@ -55,7 +56,7 @@ export const Auth = {
       if (success) {
          next();
       } else {
-         return res.status(403).json({ error: 'Seção expirada.' });
+         return res.status(403).json({ error: 'Não autorizado.' });
       }
    }
 }
