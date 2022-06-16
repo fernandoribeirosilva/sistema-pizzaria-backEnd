@@ -60,12 +60,12 @@ model Telephone {
 }
 
 model Pizza {
-  id          Int    @id @default(autoincrement())
-  name        String @db.VarChar(150)
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(150)
   price       Float
-  size        String @default("P, M, G") @db.Char(3)
-  description String @db.VarChar(80)
-  img         String @default("defaultPizza.png")
+  size        String[]// scalar list
+  description String   @db.VarChar(80)
+  img         String   @default("defaultPizza.png")
 
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
